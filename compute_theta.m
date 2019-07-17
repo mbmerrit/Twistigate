@@ -4,7 +4,6 @@ function [theta] = compute_theta(n0cz, L, H0cz, H1cz, R0, nu)
 % in terms of variables found in the paper. 
 % Variable units: L, 
 
-
 term1 = (R0/ ((H0cz/(2*pi*n0cz))^2 + R0^2 ));
 term2 = H1cz/L * ((H0cz - H1cz) / (2*pi*R0^2*n0cz* (1 + nu)));
 
