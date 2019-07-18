@@ -31,35 +31,42 @@ D = linspace(0.01, 0.2, 1000);
 % compressed height
 H_1cz = H_0cz - delta;
 
-
+R1 = zeros(1000,numel(n_0cz));
 theta = zeros(1000,numel(n_0cz));
+%n1 = zeros(1000,numel(n_0cz));
+%theta_new = zeros(1000,numel(n_0cz));
+
 for j = 1:numel(n_0cz)
     % wire length
     L = sqrt((pi * D * n_0cz(j)).^2 + (H_0cz)^2);
 
     % mean radius of uncompressed spring
     R_0 = D/2;
-
+    
     for i = 1:1000
         R1(i,j) = R1quad(n_0cz(j), L(i), H_0cz, H_1cz, R_0(i), nu);
+        %n1(i,j) = n1quad(n_0cz(j), L(i), H_0cz, H_1cz, R_0(i), nu);
+        %theta_new(i,j)=2*pi*(n1(i,j)-n_0cz(j));
         theta(i,j) = compute_theta(n_0cz(j), L(i), H_0cz, H_1cz, R_0(i), nu);
     end
 %    plot(D*1000, theta(:,j)*180/pi, 'LineWidth', 3)
-    plot(D*1000, R1(:,j)*2000, 'LineWidth', 3)
- 
+%    plot(D*1000, R1(:,j)*2000, 'LineWidth', 3)
+     plot(D*1000, (R1(:,j)'*2)./D, 'LineWidth', 3)
+    
+%    plot(D*1000, theta_new(:,j)*180/pi, 'LineWidth', 3)
+  
     hold on
     l{j} = strcat('n = ', num2str(n_0cz(j)));
 end
-
 % title('Mean Diameter vs Twist') 
 % xlabel('Mean Diameter, mm')
 % ylabel('Twist Angle, degrees')
 % grid on
 % legend(l)
 
- title('Mean Diameter vs D1') 
+ title('Mean Diameter vs D1/D0') 
  xlabel('Mean Diameter, mm')
- ylabel('Calculated D1, mm')
+ ylabel('Calculated D1/D0')
  grid on
-% legend(2)
+ legend(l)
 
