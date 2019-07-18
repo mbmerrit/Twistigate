@@ -48,9 +48,9 @@ for j = 1:numel(n_0cz)
     l{j} = strcat('n = ', num2str(n_0cz(j)));
 end
 
-title('Mean Diameter vs Twist', 'FontSize', 20, 'FontWeight', 'bold') 
-xlabel('Mean Diameter, mm', 'FontSize', 18)
-ylabel('Twist Angle, degrees', 'FontSize', 18)
+title('Mean Diameter vs Twist - Corrected for $R_1$', 'Interpreter', 'latex', 'FontSize', 20, 'FontWeight', 'bold') 
+xlabel('Mean Diameter, mm', 'FontSize', 18, 'Interpreter', 'latex')
+ylabel(['Twist Angle, degrees'], 'FontSize', 18, 'Interpreter', 'latex')
 grid on
 legend(l, 'FontSize', 20)
 ax = gca;
