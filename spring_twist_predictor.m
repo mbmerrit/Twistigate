@@ -41,16 +41,25 @@ for j = 1:numel(n_0cz)
     R_0 = D/2;
 
     for i = 1:1000
+        R1(i,j) = R1quad(n_0cz(j), L(i), H_0cz, H_1cz, R_0(i), nu);
         theta(i,j) = compute_theta(n_0cz(j), L(i), H_0cz, H_1cz, R_0(i), nu);
     end
-    plot(D*1000, theta(:,j)*180/pi, 'LineWidth', 3)
+%    plot(D*1000, theta(:,j)*180/pi, 'LineWidth', 3)
+    plot(D*1000, R1(:,j)*2000, 'LineWidth', 3)
+ 
     hold on
     l{j} = strcat('n = ', num2str(n_0cz(j)));
 end
 
-title('Mean Diameter vs Twist') 
-xlabel('Mean Diameter, mm')
-ylabel('Twist Angle, degrees')
-grid on
-legend(l)
+% title('Mean Diameter vs Twist') 
+% xlabel('Mean Diameter, mm')
+% ylabel('Twist Angle, degrees')
+% grid on
+% legend(l)
+
+ title('Mean Diameter vs D1') 
+ xlabel('Mean Diameter, mm')
+ ylabel('Calculated D1, mm')
+ grid on
+% legend(2)
 
