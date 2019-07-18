@@ -26,7 +26,7 @@ nu = 0.3;
 
 % wire diameter, m
 % D = linspace(0.005, 0.03, 1000);
-D = 0.03;
+D = 0.01;
 
 %% Some derived variables
 
@@ -46,21 +46,31 @@ for j = 1:numel(n_0cz)
         theta(i,j) = compute_theta(n_0cz(j), L, H_0cz, H_1cz(i), R_0, nu); % variable deflection
 %         theta(i,j) = compute_theta(n_0cz(j), L(i), H_0cz, H_1cz, R_0(i), nu);
     end
-    plot(delta*1000, theta(:,j)*180/pi, 'LineWidth', 3)
+    plot(delta*1000, theta(:,j)*180/pi, 'LineWidth', 2)
 %     plot(D*1000, theta(:,j)*180/pi, 'LineWidth', 3)
     hold on
-    l{j} = strcat('n = ', num2str(n_0cz(j)));
+    l{j} = strcat('$n_{0cz}=~$', num2str(n_0cz(j)));
 end
 
-title(['Wire diameter: ' num2str(D*1e3) 'mm'], 'FontSize', 20, 'FontWeight', 'bold') 
+title(['$d_w$: ' num2str(D*1e3) 'mm, $H_{0cz}= $' num2str(H_0cz*1000) 'mm'], 'FontSize', 20, 'interpreter','latex') 
 % title('Deflection vs Twist', 'FontSize', 20, 'FontWeight', 'bold') 
 % title('Mean Diameter vs Twist', 'FontSize', 20, 'FontWeight', 'bold') 
-xlabel('Deflection, mm', 'FontSize', 18)
+xlabel('$h$~(mm)', 'FontSize', 18 , 'interpreter', 'latex')
 % xlabel('Mean Diameter, mm', 'FontSize', 18)
-ylabel('Twist Angle, degrees', 'FontSize', 18)
-grid on
-legend(l, 'FontSize', 20)
-set(legend,'location','northwest')
-ax = gca;
-ax.FontSize = 18;
+ylabel('$\theta~(^{\circ})$', 'FontSize', 18 , 'interpreter', 'latex')
+legend(l); legend boxoff
+set(legend,'location','northwest','fontsize',20,'interpreter','latex')
+set(gca           ,             ...
+        'Box'         , 'on'      , ...
+        'TickDir'     , 'in'      , ...
+        'TickLength'  , [.02 .02] , ...
+        'ticklabelinterpreter','latex' , ...
+        'XMinorTick'  , 'off'     , ...
+        'YMinorTick'  , 'off'     , ...
+        'YGrid'       , 'on'     , ...
+        'XGrid'       , 'on'     , ...
+        'XColor'      , 'k'       , ...
+        'YColor'      , 'k'       , ...
+        'FontSize'    , 18        , ...
+        'LineWidth'   , 1         );
 
