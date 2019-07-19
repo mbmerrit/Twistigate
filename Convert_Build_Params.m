@@ -14,14 +14,17 @@ if strcmp(end_condition,'open') == 1
     n_0 = N_t;
     p = L_free/(n_0 - 1);
     H_0 = (n_0 - 1) * p;   % this is just L_free
+    l_s = (n_0 + 1)*d_w;  % solid height
 elseif strcmp(end_condition, 'closed_ground') == 1
     n_0 = N_t - 2;
     p = (L_free - 2*d_w)/(n_0);
     H_0 = (n_0 - 1)*p;  %
+    l_s = N_t*d_w;  % solid height
 elseif strcmp(end_condition, 'open_ground') == 1
     n_0 = N_t - 1;
     p = L_free/(n_0 - 1);
     H_0 = (n_0 - 1)*p; % again, this is just L_free
+    l_s = N_t*d_w;  % solid height
 else
     disp('invalid end condition')
 end
@@ -32,11 +35,11 @@ R_0 = (d_i + d_w)/2;  % radius
 D_0 = 2*R_0; % uncrompressed diameter
 l_w = sqrt(H_0^2 + (n_0*2*pi*R_0)^2);  % the length of the wire
 alpha_0 = asin(H_0/l_w);
-l_s = N_t*d_w; % the solid height
 
 Conversion_Output = struct;
 Conversion_Output.n_0 = n_0;
 Conversion_Output.l_w = l_w;
+Conversion_Output.l_s = l_s;
 Conversion_Output.H_0 = H_0;
 Conversion_Output.D_0 = D_0;
 Conversion_Output.R_0 = R_0;
