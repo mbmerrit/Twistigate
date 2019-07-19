@@ -1,6 +1,7 @@
 function [theta] = compute_theta(Conversion_Output, delta)
 % SAMSI IMSM Team Twistigate 2019
-% Computes \theta in degrees using Equation 39 on pg. 360 of Michalczyk (2009)
+% Computes \theta in degrees using modified final version of (39)
+% derived in terms of D_1 and n_1 everywhere,
 % in terms of variables found in the paper. 
 % Variable units: use meters for all units of length
 
