@@ -10,7 +10,7 @@ d_w = linspace(0.1,4,1000)/1000;
 theta = zeros(numel(d_w), 1);
 
 % loop through parameters
-for i = 1:numel(d_i)
+for i = 1:numel(d_w)
     spring.d_w = d_w(i);
     spring = Convert_Build_Params(spring);
     delta = 0.85 * spring.delta_max;
@@ -19,7 +19,7 @@ for i = 1:numel(d_i)
 end
 
 % plot
-plot(d_i*1000, theta, 'LineWidth', 3)
+plot(d_w*1000, theta, 'LineWidth', 3)
 xlabel('\textit{Wire Diameter (mm)}', 'Interpreter', 'latex', ...
        'FontSize', 16)
 ylabel('\textit{$\theta$ (degree)}', 'Interpreter', 'latex', ...
