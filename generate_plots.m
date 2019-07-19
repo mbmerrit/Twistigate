@@ -1,4 +1,5 @@
 clear
+load_path
 
 %Here we plot theta(deflection) and use several numbers of coils
 n_coils = [4.5, 7, 8.5, 10.5, 13.5, 15.5];
