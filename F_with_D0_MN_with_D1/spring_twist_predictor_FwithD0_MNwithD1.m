@@ -48,7 +48,7 @@ for j = 1:numel(n_0cz)
     R_0 = D/2;
     
     for i = 1:Dsize        
-        n1(i,j) = n1quad(n_0cz(j), L(i), H_0cz, H_1cz, R_0(i), nu);
+        n1(i,j) = n_1_Quad(n_0cz(j), L(i), H_0cz, H_1cz, R_0(i), nu);
         theta_new(i,j)=2*pi*(n_0cz(j)-n1(i,j));
     end
     
