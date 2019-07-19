@@ -45,13 +45,12 @@ alpha_0 = asin(H_0/l_w);
 
 spring.n_0 = n_0;
 spring.l_w = l_w;
-spring.L_soild = L_solid;
+spring.L_solid = L_solid;
 spring.H_0 = H_0;
 spring.D_0 = D_0;
 spring.R_0 = R_0;
 spring.alpha_0 = alpha_0;
 spring.nu = nu;
-spring.spring = spring;
 spring.delta_max = delta_max;
 
 end
