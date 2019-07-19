@@ -17,7 +17,7 @@ end
 
 set(gca,'fontsize', 20)
 axis tight; grid on
-xlabel('delfection (mm)')
+xlabel('deflection (mm)')
 ylabel('\theta')
 legend(l,'location', 'best')
 
