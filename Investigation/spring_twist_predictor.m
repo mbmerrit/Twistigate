@@ -1,5 +1,6 @@
 % Initial code codifying equation (39) of Michalczyk
 clear, clc, close all
+load_path
 %% Spring geometry variables
 
 % structure definitions
