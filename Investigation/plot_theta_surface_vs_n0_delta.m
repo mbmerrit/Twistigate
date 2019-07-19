@@ -25,9 +25,17 @@ for j = 1:3;
     N_t_range = 4:1:30;
     
     for i = 1:length(N_t_range)
+        
+        spring.d_w = d_w;
+        spring.d_i = d_i;
+        spring.N_t = N_t_range(i);
+        spring.end_condition = end_condition;
+        spring.L_free = L_free;
+    
         % conversion
         [Conversion_Output] = ...
-            Convert_Build_Params(d_w, d_i, end_condition, N_t_range(i), L_free);
+            Convert_Build_Params...
+            (spring);
         
         n_0 = Conversion_Output.n_0; % # of active coil
         l_w = Conversion_Output.l_w; % length of active wire
@@ -35,7 +43,7 @@ for j = 1:3;
         H_0_save(i) = H_0;
         D_0 = Conversion_Output.D_0;
         R_0 = Conversion_Output.R_0;
-        L_solid = Conversion_Output.l_s;
+        L_solid = Conversion_Output.L_solid;
         nu = Conversion_Output.nu;
         delta = 0.08; % fixed delta
 %         delta = (L_free - L_solid)*delta_factor;
@@ -45,11 +53,11 @@ for j = 1:3;
         save_l_w(i) = n_0;
         
         % compute twist angle
-        theta(j,i) = compute_theta_implicit(n_0, l_w, H_0, H_1, R_0, nu);
+        theta(j,i) = compute_theta(Conversion_Output, delta);
     end
     
     % figure
-    f{j}=plot(N_t_range, theta(j,:)*180/pi,mymarker{j},'linewidth',2,'markersize',8);
+    f{j}=plot(N_t_range, theta(j,:),mymarker{j},'linewidth',2,'markersize',8);
 end
 
 legend([f{1} f{2} f{3}],'Open','Open ground','Closed ground');legend boxoff
