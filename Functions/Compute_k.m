@@ -12,6 +12,6 @@ H_1 = H_0 - delta;
 A = (R_0^2 + (H_0/(2*pi*n_0))^2);
 B = ((l_w^2 - H_1^2)/l_w^2) - (delta*(H_0 - delta))/(l_w*(1 + nu)*sqrt(l_w^2 + H_1^2));
 parens = (A * B)^2;
-D1n1 = 4*sqrt(l_w^2 - H_1^2)/pi * parens;
-rate = G*d_w^4/8*(1/D1n1);
+D1cubedn1 = 4*sqrt(l_w^2 - H_1^2)/pi * parens;
+rate = G*d_w^4/8*(1/D1cubedn1);
 end
