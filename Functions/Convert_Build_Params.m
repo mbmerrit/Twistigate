@@ -20,17 +20,17 @@ if strcmp(end_condition,'open') == 1
     n_0 = N_t;
     p = L_free/(n_0 - 1);
     H_0 = (n_0 - 1) * p;   % this is just L_free
-    L_soild = (n_0 + 1)*d_w;  % solid height
+    L_solid = (n_0 + 1)*d_w;  % solid height
 elseif strcmp(end_condition, 'closed_ground') == 1
     n_0 = N_t - 2;
     p = (L_free - 2*d_w)/(n_0);
     H_0 = (n_0 - 1)*p;  %
-    L_soild = N_t*d_w;  % solid height
+    L_solid = N_t*d_w;  % solid height
 elseif strcmp(end_condition, 'open_ground') == 1
     n_0 = N_t - 1;
     p = L_free/(n_0 - 1);
     H_0 = (n_0 - 1)*p; % again, this is just L_free
-    L_soild = N_t*d_w;  % solid height
+    L_solid = N_t*d_w;  % solid height
 else
     disp('invalid end condition')
 end
@@ -46,7 +46,7 @@ alpha_0 = asin(H_0/l_w);
 Conversion_Output = struct;
 Conversion_Output.n_0 = n_0;
 Conversion_Output.l_w = l_w;
-Conversion_Output.L_soild = L_soild;
+Conversion_Output.L_soild = L_solid;
 Conversion_Output.H_0 = H_0;
 Conversion_Output.D_0 = D_0;
 Conversion_Output.R_0 = R_0;
