@@ -43,6 +43,8 @@ D_0 = 2*R_0; % uncompressed diameter
 l_w = sqrt(H_0^2 + (n_0*2*pi*R_0)^2);  % the length of the wire
 alpha_0 = asin(H_0/l_w);
 
+spring.l_w = l_w;
 spring.D_0 = D_0;
+spring.alpha_0 = alpha_0;
 
 end
