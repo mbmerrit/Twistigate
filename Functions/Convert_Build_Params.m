@@ -1,4 +1,4 @@
-function [Conversion_Output] = Convert_Build_Params(spring)
+function [spring] = Convert_Build_Params(spring)
 % SAMSI IMSM Team Twistigate 2019
 % Takes build parameters as inputs and outputs parameters in terms of the
 % current working formulas. Specify lengths in terms of meters. 
@@ -43,16 +43,14 @@ D_0 = 2*R_0; % uncrompressed diameter
 l_w = sqrt(H_0^2 + (n_0*2*pi*R_0)^2);  % the length of the wire
 alpha_0 = asin(H_0/l_w);
 
-Conversion_Output = struct;
-Conversion_Output.n_0 = n_0;
-Conversion_Output.l_w = l_w;
-Conversion_Output.L_soild = L_solid;
-Conversion_Output.H_0 = H_0;
-Conversion_Output.D_0 = D_0;
-Conversion_Output.R_0 = R_0;
-Conversion_Output.alpha_0 = alpha_0;
-Conversion_Output.nu = nu;
-Conversion_Output.spring = spring;
-Conversion_Output.delta_max = delta_max;
+spring.n_0 = n_0;
+spring.l_w = l_w;
+spring.L_solid = L_solid;
+spring.H_0 = H_0;
+spring.D_0 = D_0;
+spring.R_0 = R_0;
+spring.alpha_0 = alpha_0;
+spring.nu = nu;
+spring.delta_max = delta_max;
 
 end
