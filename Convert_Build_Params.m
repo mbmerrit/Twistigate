@@ -12,7 +12,7 @@ end
 d_w = spring.d_w;
 d_i = spring.d_i;
 N_t = spring.N_t;
-end_conditions = spring.end_conditions;
+end_condition = spring.end_condition;
 L_free = spring.L_free;
 
 % Obtain pitch p using the end conditions

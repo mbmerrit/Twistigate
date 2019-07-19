@@ -15,6 +15,7 @@ l_w = Conversion_Output.l_w;
 
 n_1 = (l_w^2 - H_1^2) / (2*pi) * R_0 / (R_0^2 + (H_0/(2*pi*n_0))^2) * l_w^2 ...
     * (1+nu) / ((1+nu)*(l_w^2 - H_1^2)^(3/2) - (delta)*H_1*l_w);
-theta = 2*pi*(n_0 - n_1);
 
+theta_radians = 2*pi*(n_0 - n_1);   %theta in radians
+theta=360*(n_0-n_1);                %theta in degrees
 end
