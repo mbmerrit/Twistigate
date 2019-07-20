@@ -2,12 +2,12 @@ clear all; close all; clc;
 load_path
 spring = nominal_spring();
 spring = Convert_Build_Params(spring);
-delta_vary = linspace(0,spring.delta_max,1000);
 Nt_vary = 5:.5:9;
 for j = 1:length(Nt_vary);
 spring = nominal_spring();
 spring.N_t = Nt_vary(j);
 spring = Convert_Build_Params(spring);
+delta_vary = linspace(0,spring.delta_max,1000);
 D1_vals = zeros(size(delta_vary));
 n1_vals = zeros(size(delta_vary));
 for k = 1:length(delta_vary);
