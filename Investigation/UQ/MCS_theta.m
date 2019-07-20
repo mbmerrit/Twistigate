@@ -1,4 +1,4 @@
-clear;clc;close all
+clear;clc;
 
 load_path
 
@@ -32,11 +32,31 @@ theta = compute_theta_vectorize(spring_MCS,delta);
 % esimate pdf by ksdensity
 [pdf_theta,theta_range] = ksdensity(theta,'function','pdf');
 
+% get a theta from nominal values
+spring_nominal = Convert_Build_Params_vectorize(spring);
+delta_nominal = delta_factor*spring_nominal.delta_max;
+theta_nominal = compute_theta_vectorize(spring_nominal,delta_nominal);
+
 figure();hold on;
 fig1 = histogram(theta,'normalization','pdf');
 fig2 = plot(theta_range,pdf_theta,'r-','linewidth',1);
+fig3 = plot(theta_nominal*ones(1,100),linspace(0,1,100),'b--','linewidth',2);
+fig4 = plot(NaN,NaN);
+l1=legend([fig3 fig2],'Nominal','MCS');legend boxoff
+
+txt = {['$\theta_{nom}=~$' num2str(theta_nominal,3)],...
+    ['$\theta_{mean}=~$' num2str(mean(theta),3)],...
+    ['$\theta_{min}=~$' num2str(min(theta),3)],...
+    ['$\theta_{max}=~$' num2str(max(theta),3)],...
+    ['$\frac{\theta_{max}-\theta_{nom}}{\theta_{nom}}=~$' num2str((max(theta)-theta_nominal)/theta_nominal,2)],...;
+    ['$\frac{\theta_{nom}-\theta_{min}}{\theta_{nom}}=~$' num2str((theta_nominal-min(theta))/theta_nominal,2)]};
+f_text=text(33,0.08,txt);
+set(f_text,'interpreter','latex',...
+    'fontsize',15)
+
 xlabel('$\theta~(^{\circ})$','interpreter','latex','fontsize',20);
 ylabel('pdf','interpreter','latex','fontsize',20);
+set(l1,'interpreter','latex','fontsize',20)
 set(fig1 , 'facecolor' , [0 0 1] , 'edgecolor' , [0 0 0] , 'facealpha' , .4 , 'linestyle' , 'none');
 set(gca           ,             ...
     'Box'         , 'on'      , ...
@@ -49,10 +69,12 @@ set(gca           ,             ...
     'XGrid'       , 'on'     , ...
     'XColor'      , 'k'       , ...
     'YColor'      , 'k'       , ...
+    'YLim'        , [0 0.2] , ...
     'FontSize'    , 20        , ...
     'LineWidth'   , 1         );
 set(gcf,'PaperPositionMode','auto')
-set(gca,'YTickLabel'  , num2str(transpose(get(gca, 'YTick')), '%.2f'))
+% set(gca,'YTickLabel'  , num2str(transpose(get(gca, 'YTick')), '%.2f'))
+title(['$\delta=~$' num2str(delta_factor) '$\times (L_f - L_s),~\epsilon=' num2str(uncertainty*100) '\%$'],'interpreter','latex')
 % print(['figures/theta_histogram_' num2str(uncertainty*100) 'uncertainty'],'-deps','-r0','-painters')
 print(['figures/theta_histogram_' num2str(uncertainty*100) 'uncertainty'],'-dpng','-r0','-painters')
 savefig(['figures/theta_histogram_' num2str(uncertainty*100) 'uncertainty.fig'])
