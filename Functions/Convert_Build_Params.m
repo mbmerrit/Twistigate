@@ -42,6 +42,7 @@ R_0 = (d_i + d_w)/2;  % radius
 D_0 = 2*R_0; % uncompressed diameter
 l_w = sqrt(H_0^2 + (n_0*2*pi*R_0)^2);  % the length of the wire
 alpha_0 = asin(H_0/l_w);
+spring_index = D_0/spring.d_w;
 
 spring.n_0 = n_0;
 spring.p = p;
@@ -54,5 +55,6 @@ spring.alpha_0 = alpha_0;
 spring.delta_max = delta_max;
 spring.d_o = d_o;
 spring.nu = nu;
+spring.spring_index = spring_index;
 
 end
