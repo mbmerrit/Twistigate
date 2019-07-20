@@ -1,5 +1,7 @@
 clear;clc;close all
 
+load_path
+
 % nominal spring variables
 possible_end_conditions = {'open','open_ground','closed_ground'};
 
