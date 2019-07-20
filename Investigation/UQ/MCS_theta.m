@@ -34,7 +34,7 @@ theta = compute_theta_vectorize(spring_MCS,delta);
 
 figure();hold on;
 fig1 = histogram(theta,'normalization','pdf');
-fig2 = plot(theta_range,pdf_theta,'r-','linewidth',2);
+fig2 = plot(theta_range,pdf_theta,'r-','linewidth',1);
 xlabel('$\theta~(^{\circ})$','interpreter','latex','fontsize',20);
 ylabel('pdf','interpreter','latex','fontsize',20);
 set(fig1 , 'facecolor' , [0 0 1] , 'edgecolor' , [0 0 0] , 'facealpha' , .4 , 'linestyle' , 'none');
