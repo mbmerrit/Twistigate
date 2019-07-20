@@ -8,7 +8,7 @@ spring = nominal_spring();
 d_w = linspace(0.1,4,1000)/1000;
 
 % change the number of coils as well
-N_t = [5,7,9,11,13];
+N_t = [5:9];
 
 % preallocate
 theta = zeros(numel(d_w), numel(N_t));
@@ -19,7 +19,6 @@ for j = 1:numel(N_t)
     for i = 1:numel(d_w)
         spring.d_w = d_w(i);
         spring = Convert_Build_Params(spring);
-        %delta = 0.85 * spring.delta_max;
         delta = 0.05;
         theta(i,j) = compute_theta(spring, delta);
     end
