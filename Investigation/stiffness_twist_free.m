@@ -172,7 +172,7 @@ xlabel('L_{free} (mm)', 'Fontsize', 16)
 ylabel(strcat('\theta (', char(176),')'), 'Fontsize', 16)
 title('Relationship Between Twist Angle and Free Length', 'Fontsize', 18)
 legend('Valid Designs','L_s > L_{compress}$','\alpha_0 >  20 \degree','Nominal Design')
-saveas(gcf,'theta_Lf_free_const_n.fig')
+saveas(gcf,'../Figures/With_Missing/theta_Lf_free_const_n.fig')
 
 figure;
 scatter(inner_diam*1000, theta, '+'); hold on
@@ -183,7 +183,7 @@ xlabel('d_{i} (mm)', 'Fontsize', 16)
 ylabel(strcat('\theta (', char(176),')'), 'Fontsize', 16)
 title('Relationship Between Twist Angle and Inner Diameter', 'Fontsize', 18)
 legend('Valid Designs','L_s > L_{compress}$','\alpha_0 >  20 \degree','Nominal Design')
-saveas(gcf,'theta_di_free_const_n.fig')
+saveas(gcf,'../Figures/With_Missing/theta_di_free_const_n.fig')
 
 figure;
 scatter(wire_diam*1000, theta, '+'); hold on
@@ -194,7 +194,7 @@ xlabel('d_{w} (mm)', 'Fontsize', 16)
 ylabel(strcat('\theta (', char(176),')'), 'Fontsize', 16)
 title('Relationship Between Twist Angle and Wire Diameter', 'Fontsize', 18)
 legend('Valid Designs','L_s > L_{compress}$','\alpha_0 >  20 \degree','Nominal Design')
-saveas(gcf,'theta_dw_free_const_n.fig')
+saveas(gcf,'../Figures/With_Missing/theta_dw_free_const_n.fig')
 
 function d_w = solve_dw(in_spring, design_point, delta)
     G = in_spring.G;
