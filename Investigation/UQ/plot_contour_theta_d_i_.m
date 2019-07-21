@@ -1,4 +1,4 @@
-clear;clc;close all
+clear;clc;
 
 load_path
 
@@ -10,7 +10,7 @@ e = .1;
 
 % variable selection
 sel1 = 1;
-sel2 = 3;
+sel2 = 2;
 
 % make grid
 x(:,1) = linspace( (1 - e)*spring.d_i , (1 + e)*spring.d_i , 4e1);
@@ -20,6 +20,7 @@ x(:,4) = linspace( (1 - e)*spring.N_t , (1 + e)*spring.N_t , 4e1);
 x(:,5) = linspace( (1 - e)*spring.nu , (1 + e)*spring.nu , 4e1);
 [X1,X2] = meshgrid( x(:,sel1) , x(:,sel2) );
 
+% TO BE MODIFIED
 if sel1 == 1
     spring.d_i = X1;
     var1_name = 'd_i';
@@ -66,14 +67,14 @@ theta = compute_theta_vectorize(spring,delta);
 fig = figure();
 fig.Position = [100 100 1100 500];
 annotation('textbox', [0 0.9 1 0.1], ...
-    'String', ['MCS samples, $\delta=~L_f-\hat{L}, \hat{L}=~$' num2str(L_hat*1e3) 'mm'], ...
+    'String', ['$\delta=~L_f-\hat{L}, \hat{L}=~$' num2str(L_hat*1e3) 'mm'], ...
     'EdgeColor', 'none', ...
     'HorizontalAlignment', 'center',...
     'interpreter','latex',...
     'fontsize',20)
 subplot(121);hold on;
 f_surf = surf(X1*1e3,X2*1e3,theta);
-colormap(flipud(jet));
+% colormap(flipud(ho));
 set(f_surf,'linestyle','-')
 xlabel(['$' var1_name '~$(mm)'],'interpreter','latex','fontsize',20)
 ylabel(['$' var2_name '~$(mm)'],'interpreter','latex','fontsize',20)
@@ -95,7 +96,7 @@ set(gca           ,             ...
     'LineWidth'   , 1         );
 axis tight
 subplot(122);hold on;
-f_cont = contour(X1*1e3,X2*1e3,theta,20);
+f_cont = contourf(X1*1e3,X2*1e3,theta,20);
 f_color = colorbar;
 set(f_color,'ticklabelinterpreter','latex')
 xlabel(['$' var1_name '~$(mm)'],'interpreter','latex','fontsize',20)
