@@ -1,6 +1,8 @@
 %% For a family of springs that we considered, these are the trends.
 clear all; close all; clc;
 load_path
+%% Colors
+cmap = colormap(lines);
 %% Load the spring
 spring_nom = nominal_spring();
 %% Find the nominal twist
@@ -21,7 +23,7 @@ for k = 1:length(Lf_vary)
     spring = Convert_Build_Params(spring);
     thetas(k) = compute_theta(spring,Lf_vary(k)-L_hat);
 end
-plot(100*(Lf_vary-Lf_nom)/Lf_nom,100*(thetas-theta_nom)/theta_nom,'LineWidth',2); hold on;
+plot(100*(Lf_vary-Lf_nom)/Lf_nom,100*(thetas-theta_nom)/theta_nom,'-.','LineWidth',2); hold on;
 l{l_int} = '$L_{free} (\hat{L}_{fixed})$'; l_int = l_int + 1;
 %% Vary di
 spring = Convert_Build_Params(spring_nom);
@@ -69,7 +71,7 @@ for k = 1:length(Lf_vary)
     spring = Convert_Build_Params(spring);
     thetas(k) = compute_theta(spring,delta_nom);
 end
-plot(100*(Lf_vary-Lf_nom)/Lf_nom,100*(thetas-theta_nom)/theta_nom,'LineWidth',2); hold on;
+plot(100*(Lf_vary-Lf_nom)/Lf_nom,100*(thetas-theta_nom)/theta_nom,'-.','LineWidth',2); hold on;
 l{l_int} = '$L_{free} (\delta_{fixed})$'; l_int = l_int + 1;
 %% Vary nu
 spring = Convert_Build_Params(spring_nom);
