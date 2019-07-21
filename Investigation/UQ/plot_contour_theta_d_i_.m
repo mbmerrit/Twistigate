@@ -10,7 +10,7 @@ e = .1;
 
 % variable selection
 sel1 = 1;
-sel2 = 2;
+sel2 = 3;
 
 % make grid
 x(:,1) = linspace( (1 - e)*spring.d_i , (1 + e)*spring.d_i , 4e1);
@@ -117,5 +117,5 @@ set(gca           ,             ...
     'FontSize'    , 18        , ...
     'LineWidth'   , 1         );
 set(gcf,'PaperPositionMode','auto')
-print(['figures/surface_contour_d_i_vs_d_w_' num2str(e*100) 'uncertainty'],'-dpng','-r0','-painters')
+print(['figures/surface_contour_' var1_name '_vs_' var2_name '_' num2str(e*100) 'uncertainty'],'-dpng','-r0','-painters')
 savefig(['figures/surface_contour_L_hat_' var1_name '_vs_' var2_name '_' num2str(e*100) 'uncertainty.fig'])

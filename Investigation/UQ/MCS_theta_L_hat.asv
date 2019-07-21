@@ -8,7 +8,7 @@ spring = nominal_spring();
 % generate random samples
 rng('default'); % same random seed for reproductability
 N_mc = 1e6; % number of MCS samples
-uncertainty = .025;
+uncertainty = .10;
 X_1 = unifrnd( (1-uncertainty)*spring.d_i   , (1+uncertainty)*spring.d_i,    N_mc, 1);
 X_2 = unifrnd( (1-uncertainty)*spring.d_w   , (1+uncertainty)*spring.d_w,    N_mc, 1);
 X_3 = unifrnd( (1-uncertainty)*spring.L_free, (1+uncertainty)*spring.L_free, N_mc, 1);
