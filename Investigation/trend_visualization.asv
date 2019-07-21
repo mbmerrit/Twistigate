@@ -29,27 +29,27 @@ spring_nom.N_t = spring_nom.N_t*(1 + randn/20);
 spring_nom.L_free = spring_nom.L_free*(1 + randn/20);
 %% Find the nominal twist
 spring = Convert_Build_Params(spring_nom);
-delta_nom = spring.delta_max*.75;
+delta_nom = spring.delta_max*.5;
 delta_nom = delta_nom*(1 + randn/20);
 theta_nom = compute_theta_cos(spring,delta_nom);
 %% Set up things for the legend
 l_int = 1;
-% %% Vary Lf (Lhat fixed)
-% spring = Convert_Build_Params(spring_nom);
-% Lf_nom = spring.L_free;
-% L_hat = Lf_nom - delta_nom;
-% % L_hat = .05;
-% Lf_vary = linspace(.75*Lf_nom,1.25*Lf_nom,101);
-% thetas = zeros(size(Lf_vary));
-% for k = 1:length(Lf_vary)
-%     spring = spring_nom;
-%     spring.L_free = Lf_vary(k);
-%     spring = Convert_Build_Params(spring);
-%     thetas(k) = compute_theta(spring,Lf_vary(k)-L_hat);
-% end
-% Lfhat_p = [Lfhat_p; 100*(thetas-theta_nom)/theta_nom];
-% plot(100*(Lf_vary-Lf_nom)/Lf_nom,100*(thetas-theta_nom)/theta_nom,'-.','LineWidth',2); hold on;
-% l{l_int} = '$L_{free} (\hat{L}_{fixed})$'; l_int = l_int + 1;
+%% Vary Lf (Lhat fixed)
+spring = Convert_Build_Params(spring_nom);
+Lf_nom = spring.L_free;
+L_hat = Lf_nom - delta_nom;
+% L_hat = .05;
+Lf_vary = linspace(.75*Lf_nom,1.25*Lf_nom,101);
+thetas = zeros(size(Lf_vary));
+for k = 1:length(Lf_vary)
+    spring = spring_nom;
+    spring.L_free = Lf_vary(k);
+    spring = Convert_Build_Params(spring);
+    thetas(k) = compute_theta(spring,Lf_vary(k)-L_hat);
+end
+Lfhat_p = [Lfhat_p; 100*(thetas-theta_nom)/theta_nom];
+plot(100*(Lf_vary-Lf_nom)/Lf_nom,100*(thetas-theta_nom)/theta_nom,'-.','LineWidth',2); hold on;
+l{l_int} = '$L_{free} (\hat{L}_{fixed})$'; l_int = l_int + 1;
 %% Vary di
 spring = Convert_Build_Params(spring_nom);
 di_nom = spring.d_i;
@@ -101,7 +101,7 @@ for k = 1:length(Lf_vary)
 end
 Lf_p = [Lf_p; 100*(thetas-theta_nom)/theta_nom];
 plot(100*(Lf_vary-Lf_nom)/Lf_nom,100*(thetas-theta_nom)/theta_nom,'LineWidth',2); hold on;
-l{l_int} = '$L_{free} (\delta_{fixed})$ '; l_int = l_int + 1;
+l{l_int} = '$L_{free}$ '; l_int = l_int + 1;
 %% Vary nu
 spring = Convert_Build_Params(spring_nom);
 nu_nom = spring.nu;
@@ -131,8 +131,8 @@ l{l_int} = '$d_w$ '; l_int = l_int + 1;
 end
 %% Plot all parameters area plots
 figure;
-% z = area(linspace(-25,25,101),([(min(abs(Lfhat_p)).*sign(Lfhat_p(1,:)))' (range(Lfhat_p).*sign(Lfhat_p(1,:)))'])); hold on;
-% z(1).FaceColor = 'none'; z(1).LineStyle = 'none'; z(2).FaceAlpha = .5;
+z = area(linspace(-25,25,101),([(min(abs(Lfhat_p)).*sign(Lfhat_p(1,:)))' (range(Lfhat_p).*sign(Lfhat_p(1,:)))'])); hold on;
+z(1).FaceColor = 'none'; z(1).LineStyle = 'none'; z(2).FaceAlpha = .5;
 
 a = area(linspace(-25,25,101),([(min(abs(di_p)).*sign(di_p(1,:)))' (range(di_p).*sign(di_p(1,:)))'])); hold on;
 a(1).FaceColor = 'none'; a(1).LineStyle = 'none'; a(2).FaceAlpha = .5;
@@ -156,4 +156,4 @@ set(gca,'fontsize', 20)
 axis tight; grid on
 xlabel("%\Delta Parameter")
 ylabel('%\Delta \theta')
-legend([a(2) b(2) c(2) d(2) e(2) f(2)],l,'location','northeast','Orientation','horizontal','interpreter','latex');
+legend([z(2) a(2) b(2) c(2) d(2) e(2) f(2)],l,'location','southwest','Orientation','horizontal','interpreter','latex');
