@@ -31,7 +31,7 @@ spring_nom.L_free = spring_nom.L_free*(1 + randn/20);
 spring = Convert_Build_Params(spring_nom);
 delta_nom = spring.delta_max*.75;
 delta_nom = delta_nom*(1 + randn/20);
-theta_nom = compute_theta_cos(spring,delta_nom);
+theta_nom = compute_theta(spring,delta_nom);
 %% Set up things for the legend
 l_int = 1;
 % %% Vary Lf (Lhat fixed)
@@ -59,7 +59,7 @@ for k = 1:length(di_vary)
     spring = spring_nom;
     spring.d_i = di_vary(k);
     spring = Convert_Build_Params(spring);
-    thetas(k) = compute_theta_cos(spring,delta_nom);
+    thetas(k) = compute_theta(spring,delta_nom);
 end
 di_p = [di_p; 100*(thetas-theta_nom)/theta_nom];
 plot(100*(di_vary-di_nom)/di_nom,100*(thetas-theta_nom)/theta_nom,'LineWidth',2); hold on;
@@ -69,7 +69,7 @@ spring = Convert_Build_Params(spring_nom);
 delta_vary = linspace(.75*delta_nom,1.25*delta_nom,101);
 thetas = zeros(size(delta_vary));
 for k = 1:length(delta_vary)
-    thetas(k) = compute_theta_cos(spring,delta_vary(k));
+    thetas(k) = compute_theta(spring,delta_vary(k));
 end
 delta_p = [delta_p; 100*(thetas-theta_nom)/theta_nom];
 plot(100*(delta_vary-delta_nom)/delta_nom,100*(thetas-theta_nom)/theta_nom,'LineWidth',2); hold on;
@@ -83,7 +83,7 @@ for k = 1:length(Nt_vary)
     spring = spring_nom;
     spring.N_t = Nt_vary(k);
     spring = Convert_Build_Params(spring);
-    thetas(k) = compute_theta_cos(spring,delta_nom);
+    thetas(k) = compute_theta(spring,delta_nom);
 end
 Nt_p = [Nt_p; 100*(thetas-theta_nom)/theta_nom];
 plot(100*(Nt_vary-Nt_nom)/Nt_nom,100*(thetas-theta_nom)/theta_nom,'LineWidth',2); hold on;
@@ -97,7 +97,7 @@ for k = 1:length(Lf_vary)
     spring = spring_nom;
     spring.L_free = Lf_vary(k);
     spring = Convert_Build_Params(spring);
-    thetas(k) = compute_theta_cos(spring,delta_nom);
+    thetas(k) = compute_theta(spring,delta_nom);
 end
 Lf_p = [Lf_p; 100*(thetas-theta_nom)/theta_nom];
 plot(100*(Lf_vary-Lf_nom)/Lf_nom,100*(thetas-theta_nom)/theta_nom,'LineWidth',2); hold on;
@@ -109,7 +109,7 @@ nu_vary = linspace(.75*nu_nom,1.25*nu_nom,101);
 thetas = zeros(size(nu_vary));
 for k = 1:length(nu_vary)
     spring.nu = nu_vary(k);
-    thetas(k) = compute_theta_cos(spring,delta_nom);
+    thetas(k) = compute_theta(spring,delta_nom);
 end
 nu_p = [nu_p; 100*(thetas-theta_nom)/theta_nom];
 plot(100*(nu_vary-nu_nom)/nu_nom,100*(thetas-theta_nom)/theta_nom,'LineWidth',2); hold on;
@@ -123,7 +123,7 @@ for k = 1:length(dw_vary)
     spring = spring_nom;
     spring.d_w = dw_vary(k);
     spring = Convert_Build_Params(spring);
-    thetas(k) = compute_theta_cos(spring,delta_nom);
+    thetas(k) = compute_theta(spring,delta_nom);
 end
 dw_p = [dw_p; 100*(thetas-theta_nom)/theta_nom];
 plot(100*(dw_vary-dw_nom)/dw_nom,100*(thetas-theta_nom)/theta_nom,'LineWidth',2); hold on;

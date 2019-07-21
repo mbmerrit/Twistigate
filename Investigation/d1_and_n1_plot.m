@@ -30,14 +30,14 @@ for k = 1:length(delta_vary);
 end
 figure(1)
 plot(delta_vary*1000,D1_vals*1000,'LineWidth',2); hold on;
-plot(delta_vary*1000,D1_vals2*1000,'--');
+% plot(delta_vary*1000,D1_vals2*1000,'--');
 figure(2)
-plot(delta_vary*1000,n1_vals-Nt_vary(j),'LineWidth',2); hold on;
-plot(delta_vary*1000,n1_vals2-Nt_vary(j),'--');
+plot(delta_vary*1000,n1_vals-Nt_vary(j)+1,'LineWidth',2); hold on;
+% plot(delta_vary*1000,n1_vals2-Nt_vary(j),'--');
 l{j} = ['N_T = ' num2str(Nt_vary(j))];
-figure(3)
-plot(delta_vary*1000,360*(Nt_vary(j) - n1_vals),'LineWidth',2); hold on;
-plot(delta_vary*1000,360*(Nt_vary(j) - n1_vals2),'--');
+% figure(3)
+% plot(delta_vary*1000,360*(Nt_vary(j) - n1_vals),'LineWidth',2); hold on;
+% plot(delta_vary*1000,360*(Nt_vary(j) - n1_vals2),'--');
 end
 figure(1);
 set(gca,'fontsize', 20)
@@ -51,9 +51,9 @@ axis tight; grid on;
 xlabel('Deflection, \delta (mm)');
 ylabel('Change in Active Coils, n_1 - n_0');
 legend(l,'location','southwest');
-figure(3);
-set(gca,'fontsize',20)
-axis tight; grid on;
-xlabel('Deflection, \delta (mm)');
-ylabel('\theta');
-legend(l,'location','southwest');
+% figure(3);
+% set(gca,'fontsize',20)
+% axis tight; grid on;
+% xlabel('Deflection, \delta (mm)');
+% ylabel('\theta');
+% legend(l,'location','southwest');

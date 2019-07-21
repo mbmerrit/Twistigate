@@ -102,4 +102,4 @@ set(gca,'fontsize', 20)
 axis tight; grid on
 xlabel("%\Delta Parameter")
 ylabel('%\Delta \theta')
-legend(l,'location','southeast','Orientation','horizontal','Interpreter','latex');
+legend(l,'location','northwest','Orientation','horizontal','Interpreter','latex');
