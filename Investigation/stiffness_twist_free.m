@@ -22,7 +22,7 @@ G = spring.G;
 % create a bunch of combinations
 d_i    = linspace(10, 50, 100) / 1000;
 L_free = linspace(0.075, 0.4, 100);
-n_0    = linspace(5, 30, 100);
+N_t    = linspace(5, 50, 100);
 
 
 % constraints
@@ -32,17 +32,17 @@ max_alpha_0 = 20;
 max_L_solid = L_hat;
 
 % prep the data structure
-combos.d_i = zeros(numel(d_i)*numel(L_free)*numel(n_0), 1);
+combos.d_i = zeros(numel(d_i)*numel(L_free)*numel(N_t), 1);
 combos.L_free = combos.d_i;
-combos.n_0 = combos.d_i;
+combos.N_t = combos.d_i;
 
 count = 1;
 for i = 1:numel(d_i)
     for j = 1:numel(L_free)
-        for k = 1:numel(n_0)
+        for k = 1:numel(N_t)
             combos.d_i(count) = d_i(i);
             combos.L_free(count) = L_free(j);
-            combos.n_0(count) = n_0(k);
+            combos.N_t(count) = N_t(k);
             count = count + 1;
         end
     end
@@ -72,9 +72,6 @@ fail_alpha_free_length   = stiffness;
 fail_alpha_inner_diam    = stiffness;
 fail_alpha_wire_diam     = stiffness;
 
-%for i = 1:size(combos.d_i,1)
-spring.n_0 = n_0;
-
 parfor i = 1:size(combos.d_i,1)
     spring = nominal_spring();
     
@@ -86,7 +83,7 @@ parfor i = 1:size(combos.d_i,1)
     % update the spring parameters
     spring.d_i    = combos.d_i(i);
     spring.L_free = combos.L_free(i);
-    spring.n_0    = combos.n_0(i);
+    spring.N_t    = combos.N_t(i);
 
     delta = spring.L_free - L_hat;
     design_point = F / (delta);
@@ -124,7 +121,7 @@ parfor i = 1:size(combos.d_i,1)
     free_length(i)  = spring.L_free;
     inner_diam(i)   = spring.d_i;
     wire_diam(i)    = spring.d_w;
-    num_coils(i)    = spring.n_0;
+    num_coils(i)    = spring.N_t;
     theta(i) = compute_theta(spring, delta);
     
     valid_spring{i} = spring;
@@ -132,7 +129,7 @@ end
 
 % optimal spring
 [val, ind] = min(theta);
-optimal_spring = valid_spring{i}
+optimal_spring = valid_spring{ind}
 
 % prepare nominal spring for plotting
 nom_spring = Convert_Build_Params(nom_spring);
@@ -149,7 +146,7 @@ scatter(nom_spring.stiffness, nom_spring.theta, 75, 'filled')
 xlabel('Stiffness (^{N}/_{m})', 'Fontsize', 16)
 ylabel(strcat('\theta (', char(176),')'), 'Fontsize', 16)
 title('Relationship Between Twist Angle and Stiffness', 'Fontsize', 18)
-legend('Valid Designs','L_s > L_{compress}$','\alpha_0 >  20 \degree','Nominal Design')
+legend('Valid Designs','L_s > L_{compress}',strcat('\alpha_0 >  20 ', char(176)),'Nominal Design')
 saveas(gcf,'../Figures/With_Missing/theta_k_free_const_n.fig')
 
 figure;
@@ -160,7 +157,7 @@ scatter(nom_spring.spring_index, nom_spring.theta, 75, 'filled')
 xlabel('Spring Index', 'Fontsize', 16)
 ylabel(strcat('\theta (', char(176),')'), 'Fontsize', 16)
 title('Relationship Between Twist Angle and Spring Index', 'Fontsize', 18)
-legend('Valid Designs','L_s > L_{compress}$','\alpha_0 >  20 \degree','Nominal Design')
+legend('Valid Designs','L_s > L_{compress}',strcat('\alpha_0 >  20 ', char(176)),'Nominal Design')
 saveas(gcf,'../Figures/With_Missing/theta_SI_free_const_n.fig')
 
 figure;
@@ -171,7 +168,7 @@ scatter(nom_spring.L_free*1000, nom_spring.theta, 75, 'filled')
 xlabel('L_{free} (mm)', 'Fontsize', 16)
 ylabel(strcat('\theta (', char(176),')'), 'Fontsize', 16)
 title('Relationship Between Twist Angle and Free Length', 'Fontsize', 18)
-legend('Valid Designs','L_s > L_{compress}$','\alpha_0 >  20 \degree','Nominal Design')
+legend('Valid Designs','L_s > L_{compress}',strcat('\alpha_0 >  20 ', char(176)),'Nominal Design')
 saveas(gcf,'../Figures/With_Missing/theta_Lf_free_const_n.fig')
 
 figure;
@@ -182,7 +179,7 @@ scatter(nom_spring.d_i*1000, nom_spring.theta, 75, 'filled')
 xlabel('d_{i} (mm)', 'Fontsize', 16)
 ylabel(strcat('\theta (', char(176),')'), 'Fontsize', 16)
 title('Relationship Between Twist Angle and Inner Diameter', 'Fontsize', 18)
-legend('Valid Designs','L_s > L_{compress}$','\alpha_0 >  20 \degree','Nominal Design')
+legend('Valid Designs','L_s > L_{compress}',strcat('\alpha_0 >  20 ', char(176)),'Nominal Design')
 saveas(gcf,'../Figures/With_Missing/theta_di_free_const_n.fig')
 
 figure;
@@ -193,14 +190,15 @@ scatter(nom_spring.d_w*1000, nom_spring.theta, 75, 'filled')
 xlabel('d_{w} (mm)', 'Fontsize', 16)
 ylabel(strcat('\theta (', char(176),')'), 'Fontsize', 16)
 title('Relationship Between Twist Angle and Wire Diameter', 'Fontsize', 18)
-legend('Valid Designs','L_s > L_{compress}$','\alpha_0 >  20 \degree','Nominal Design')
+legend('Valid Designs','L_s > L_{compress}',strcat('\alpha_0 >  20 ', char(176)),'Nominal Design')
 saveas(gcf,'../Figures/With_Missing/theta_dw_free_const_n.fig')
 
 function d_w = solve_dw(in_spring, design_point, delta)
     G = in_spring.G;
     tol = 1e-6;
     descend_rate = 0.01;
-    
+    in_spring = Convert_Build_Params(in_spring);
+
     % initial guess for d_w to satisfy F/(L_free - L_hat)
     in_spring.d_w = (design_point*8*in_spring.d_i^3*in_spring.n_0/G)^(1/4);
         
