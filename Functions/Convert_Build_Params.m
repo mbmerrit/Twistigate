@@ -19,7 +19,7 @@ L_free = spring.L_free;
 if strcmp(end_condition,'open') == 1
     n_0 = N_t;
     p = L_free/(n_0 - 1);
-    H_0 = (n_0 - 1) * p;   % this is just L_free
+    H_0 = (n_0 - 1) * p - d_w;   % this is just L_free
     L_solid = (n_0 + 1)*d_w;  % solid height
 elseif strcmp(end_condition, 'closed_ground') == 1
     n_0 = N_t - 2;
