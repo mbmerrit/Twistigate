@@ -19,7 +19,7 @@ L_free = spring.L_free;
 if strcmp(end_condition,'open') == 1
     n_0 = N_t;
     p = L_free/(n_0 - 1);
-    H_0 = (n_0 - 1) * p;   % this is just L_free
+    H_0 = (n_0 - 1) * p - d_w;   % this is just L_free
     L_solid = (n_0 + 1)*d_w;  % solid height
 elseif strcmp(end_condition, 'closed_ground') == 1
     n_0 = N_t - 2;
@@ -39,18 +39,22 @@ delta_max = L_free - L_solid;   % the maximum deflection
 d_o = d_i + 2*d_w; % the outer diameter
 nu = 0.3; % Poisson ratio, this is the valued we've agreed to use
 R_0 = (d_i + d_w)/2;  % radius 
-D_0 = 2*R_0; % uncrompressed diameter
+D_0 = 2*R_0; % uncompressed diameter
 l_w = sqrt(H_0^2 + (n_0*2*pi*R_0)^2);  % the length of the wire
 alpha_0 = asin(H_0/l_w);
+spring_index = D_0/spring.d_w;
 
 spring.n_0 = n_0;
-spring.l_w = l_w;
-spring.L_solid = L_solid;
+spring.p = p;
 spring.H_0 = H_0;
+spring.L_solid = L_solid;
+spring.l_w = l_w;
 spring.D_0 = D_0;
 spring.R_0 = R_0;
 spring.alpha_0 = alpha_0;
-spring.nu = nu;
 spring.delta_max = delta_max;
+spring.d_o = d_o;
+spring.nu = nu;
+spring.spring_index = spring_index;
 
 end
