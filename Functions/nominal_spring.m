@@ -4,4 +4,5 @@ function spring = nominal_spring()
     spring.L_free = 0.100;
     spring.N_t = 7;
     spring.end_condition = 'open_ground';
+    spring.G = 79e9;
 end
