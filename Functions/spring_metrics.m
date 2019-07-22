@@ -1,4 +1,4 @@
-function spring = spring_metrics(spring)
+function spring = spring_metrics(spring, varargin)
     % function to compute all the metrics related to twisting
 
     if spring.L_hat == 0
@@ -23,5 +23,10 @@ function spring = spring_metrics(spring)
     spring.k_0      = spring.G * spring.d_w^4 / (8 * spring.D_0^3 * spring.n_0);
     spring.buckling = spring.L_free / spring.D_0; 
     spring.C        = spring.D_0 / spring.d_w;
-    
+
+    if length(varargin) > 0
+        if varargin{1} == true
+            display_output(spring);
+        end
+    end
 end
