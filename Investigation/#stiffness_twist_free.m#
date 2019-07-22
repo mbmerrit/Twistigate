@@ -22,7 +22,7 @@ G = spring.G;
 % create a bunch of combinations
 d_i    = linspace(10, 50, 100) / 1000;
 L_free = linspace(0.075, 0.4, 100);
-N_t    = linspace(4, 50, 100);
+N_t    = linspace(4, 20, 100);
 
 
 % constraints
