@@ -37,3 +37,4 @@ title('\textit{Twist Angle vs Wire Diameter}', 'FontSize', 18, 'FontWeight', ...
       'bold', 'Interpreter', 'latex')
 legend(l, 'FontSize', 16)
 grid on
+saveas(gcf, '../Figures/wire_diameter_n.fig');

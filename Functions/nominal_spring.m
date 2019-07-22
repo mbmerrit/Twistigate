@@ -5,4 +5,5 @@ function spring = nominal_spring()
     spring.N_t = 7;
     spring.end_condition = 'open_ground';
     spring.G = 79e9;
+    spring.L_hat = 0.025;
 end
