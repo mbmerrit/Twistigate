@@ -3,7 +3,7 @@ function [xfinal] = Optimize_Twist(Fhat, Lhat)
 %REMINDER TODO!- Change f1 and f2 so that we take H_0=L_free-d_w 
 % Takes force, Lhat, Poisson ratio and G and optimizes to reduce twist
 d_i_min=0.010;
-d_i_max=0.100;
+d_i_max=0.050;
 d_w_min=0.001;
 nu=0.30;
 G=79e9;
@@ -13,9 +13,10 @@ x = [N_t;d_i;d_w;L_free]; % column vector of symbolic variables
 f1(N_t,d_i,d_w,L_free) = 2*180*(N_t - ((L_free^2 + 4*N_t^2*pi^2*(d_i/2 + d_w/2)^2)*(nu + 1)*(d_i/2 + d_w/2)*(L_free^2 - Lhat^2 + 4*N_t^2*pi^2*(d_i/2 + d_w/2)^2))/(2*pi*((d_i/2 + d_w/2)^2 + L_free^2/(4*N_t^2*pi^2))*((nu + 1)*(L_free^2 - Lhat^2 + 4*N_t^2*pi^2*(d_i/2 + d_w/2)^2)^(3/2) - Lhat*(L_free^2 + 4*N_t^2*pi^2*(d_i/2 + d_w/2)^2)^(1/2)*(L_free - Lhat))));
 n1(N_t,d_i,d_w,L_free) =((L_free^2 + 4*N_t^2*pi^2*(d_i/2 + d_w/2)^2)*(nu + 1)*(d_i/2 + d_w/2)*(L_free^2 - Lhat^2 + 4*N_t^2*pi^2*(d_i/2 + d_w/2)^2))/(2*pi*((d_i/2 + d_w/2)^2 + L_free^2/(4*N_t^2*pi^2))*((nu + 1)*(L_free^2 - Lhat^2 + 4*N_t^2*pi^2*(d_i/2 + d_w/2)^2)^(3/2) - Lhat*(L_free^2 + 4*N_t^2*pi^2*(d_i/2 + d_w/2)^2)^(1/2)*(L_free - Lhat)));
 l_w(N_t,d_i,d_w,L_free) = ((L_free - d_w)^2 + 4*N_t^2*pi^2*(d_i/2 + d_w/2)^2);
-f2(N_t,d_i,d_w,L_free) = (Fhat - ((G*d_w^4*pi^2*n1^2)/(8*(l_w^2-Lhat^2))))^2;
+Fcalc(N_t,d_i,d_w,L_free) = ((G*d_w^4*pi^2*n1^2)/(8*(l_w^2-Lhat^2)));
+f2(N_t,d_i,d_w,L_free) = (Fhat - Fcalc)^2;
 %f = 2*pi*(x1 - ((x2/2 + x3/2)*((286138806900821545*x1^2)/70368744177664 + 103*x4^2)*((2778046668940015*x1^2)/70368744177664 + x4^2 - 1/10000))/(200*pi*((70368744177664*x4^2)/(2778046668940015*x1^2) + (x2/2 + x3/2)^2)*((103*((2778046668940015*x1^2)/70368744177664 + x4^2 - 1/10000)^(3/2))/100 - (x4/100 - 1/10000)*((2778046668940015*x1^2)/70368744177664 + x4^2)^(1/2)))) + ((52980395557970032*x3^4*(x2/2 + x3/2)^2*((2778046668940015*x1^2)/70368744177664 + x4^2)^2*(x4 - 1/100)*((2778046668940015*x1^2)/70368744177664 + x4^2 - 1/10000)^(1/2))/(6782340500341833*((70368744177664*x4^2)/(2778046668940015*x1^2) + (x2/2 + x3/2)^2)^2*((103*((2778046668940015*x1^2)/70368744177664 + x4^2 - 1/10000)^(3/2))/100 - (x4/100 - 1/10000)*((2778046668940015*x1^2)/70368744177664 + x4^2)^(1/2))^2) - 5)^2
-f = f2;%(0.000001*f1)+(10000*f2);
+f = f2;%(0.0000001*f1)+(100000*f2);
 c1 = -N_t;% + N_t_min;
 c2 = -d_i + d_i_min;
 c3 = L_free - L_free_max;
@@ -34,34 +35,8 @@ gradc = jacobian(c,x).'; % transpose to put in correct form
 % hessc1h = matlabFunction(hessc1,'vars',{x});
 % hessc2h = matlabFunction(hessc2,'vars',{x});
 
-options = optimoptions('fmincon','Algorithm','OutputFcn',@outfun,'interior-point',...
-    'Display','iter');
-function stop = outfun(x,optimValues,state)
-     stop = false;
- 
-     switch state
-         case 'init'
-             hold on
-         case 'iter'
-         % Concatenate current point and objective function
-         % value with history. x must be a row vector.
-           history.fval = [history.fval; optimValues.fval];
-           history.x = [history.x; x];
-         % Concatenate current search direction with 
-         % searchdir.
-           searchdir = [searchdir;... 
-                        optimValues.searchdirection'];
-           plot(x(1),x(2),'o');
-         % Label points with iteration number and add title.
-         % Add .15 to x(1) to separate label from plotted 'o'
-           text(x(1)+.15,x(2),... 
-                num2str(optimValues.iteration));
-           title('Sequence of Points Computed by fmincon');
-         case 'done'
-             hold off
-         otherwise
-     end
-end
+options = optimoptions('fmincon','Algorithm','interior-point',...
+    'Display','final');
 
 % fh3 = objective without gradient or Hessian
 fh3 = matlabFunction(f,'vars',{x});
@@ -71,7 +46,9 @@ constraint = matlabFunction(c,[],'vars',{x});
     [],[],[],[],[],[],constraint,options);
 thetafinal=double(f1(xfinal(1),xfinal(2),xfinal(3),xfinal(4)))
 fconstfinal=double(f2(xfinal(1),xfinal(2),xfinal(3),xfinal(4)))
-xfinal
+ffinal=double(Fcalc(xfinal(1),xfinal(2),xfinal(3),xfinal(4)))
+l_wfinal=double(l_w(xfinal(1),xfinal(2),xfinal(3),xfinal(4)))
+n1final=double(n1(xfinal(1),xfinal(2),xfinal(3),xfinal(4)))
 fval;
 assume([N_t,d_i,d_w,L_free],'clear')
 end
