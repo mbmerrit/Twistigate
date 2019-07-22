@@ -12,7 +12,7 @@ function spring = spring_metrics(spring, varargin)
 
     % check to make sure solid height is not too large
     if spring.L_solid > spring.L_hat
-        warn('Spring is compressed past solid height')
+        warning('Spring is compressed past solid height')
     end
 
     spring.D_1      = 2*compute_r1(spring, spring.delta);
