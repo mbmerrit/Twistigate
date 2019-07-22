@@ -18,7 +18,7 @@ delta = 180/1000;
 for i = 1:5
     spring.d_w = d_w;
     spring.L_free = L_f(i);
-    spring.N_t = 8.5;
+    spring.N_t = 8.5+1;
     spring.d_i = d_i(i);
 
     spring = Convert_Build_Params(spring);
@@ -30,7 +30,7 @@ end
 for i = 1:5
     spring.d_w = d_w;
     spring.L_free = L_f(i);
-    spring.N_t = 9.5;
+    spring.N_t = 9.5+1;
     spring.d_i = d_i(i);
 
     spring = Convert_Build_Params(spring);
@@ -42,7 +42,7 @@ end
 for i = 1:5
     spring.d_w = d_w;
     spring.L_free = L_f(i);
-    spring.N_t = 10.5;
+    spring.N_t = 10.5+1;
     spring.d_i = d_i(i);
 
     spring = Convert_Build_Params(spring);
@@ -51,11 +51,13 @@ for i = 1:5
 end
 
 hold on
-plot(d_i*1000, theta, '-o')
-plot(d_i*1000, theta_n_85, '-o')
-plot(d_i*1000, theta_n_95, '-o')
-plot(d_i*1000, theta_n_105, '-o')
+plot(d_i*1000, theta, '-', 'LineWidth', 2)
+plot(d_i*1000, theta_n_85, '--', 'LineWidth', 2)
+plot(d_i*1000, theta_n_95, '--', 'LineWidth', 2)
+plot(d_i*1000, theta_n_105, '--', 'LineWidth', 2)
 
 xlabel('d_i')
 ylabel('\theta (\circ)')
 legend('Michalczyk Data','n_0 = 8.5','n_0 = 9.5','n_0 = 10.5')
+saveas(gcf, '../Figures/compare_to_michalczyk.fig')
+close all
