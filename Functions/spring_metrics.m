@@ -22,5 +22,6 @@ function spring = spring_metrics(spring)
     spring.k_1      = spring.F_1 / spring.delta;
     spring.k_0      = spring.G * spring.d_w^4 / (8 * spring.D_0^3 * spring.n_0);
     spring.buckling = spring.L_free / spring.D_0; 
+    spring.C        = spring.D_0 / spring.d_w;
     
 end
