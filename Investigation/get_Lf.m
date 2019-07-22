@@ -6,7 +6,9 @@
 springs = <Get a bunch of springs>;
 
 for i = 1:numel(springs)
-    wrapper = @(Lf) objective_function(Lf, springs(i))
+    Lf = springs(i).L_free;
+    wrapper = @(Lf) objective_function(Lf, springs(i));
+    L_free = fzero(wrapper, Lf);
 end
 
 function val = objective_function(L_f, spring)

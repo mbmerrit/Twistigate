@@ -13,12 +13,14 @@ X_1 = unifrnd( (1-uncertainty)*spring.d_i   , (1+uncertainty)*spring.d_i,    N_m
 X_2 = unifrnd( (1-uncertainty)*spring.d_w   , (1+uncertainty)*spring.d_w,    N_mc, 1);
 X_3 = unifrnd( (1-uncertainty)*spring.L_free, (1+uncertainty)*spring.L_free, N_mc, 1);
 X_4 = unifrnd( (1-uncertainty)*spring.N_t   , (1+uncertainty)*spring.N_t,    N_mc, 1);
+X_5 = unifrnd( (1-uncertainty)*spring.nu    , (1+uncertainty)*spring.nu,     N_mc, 1);
 
 % pack samples
 spring_MCS.d_i    = X_1;
 spring_MCS.d_w    = X_2;
 spring_MCS.L_free = X_3;
 spring_MCS.N_t    = X_4;
+spring_MCS.nu     = X_5;
 spring_MCS.end_condition = 'open';
 
 % convert parameters
@@ -54,7 +56,7 @@ f_text=text(33,0.08,txt);
 set(f_text,'interpreter','latex',...
     'fontsize',15)
 
-txt2 = {['Variables:'],['~$d_i,~d_w,~L_f,N_t$']};
+txt2 = {['Variables:'],['~$d_i,~d_w,~L_f,N_t,\nu$']};
 f_text2=text(11,0.18,txt2);
 set(f_text2,'interpreter','latex',...
     'fontsize',15)
@@ -83,5 +85,5 @@ set(gcf,'PaperPositionMode','auto')
 % set(gca,'YTickLabel'  , num2str(transpose(get(gca, 'YTick')), '%.2f'))
 title(['$\delta=~$' num2str(delta_factor) '$\times (L_f - L_s),~\epsilon=' num2str(uncertainty*100) '\%$'],'interpreter','latex')
 % print(['figures/theta_histogram_' num2str(uncertainty*100) 'uncertainty'],'-deps','-r0','-painters')
-print(['figures/theta_histogram_' num2str(uncertainty*100) 'uncertainty'],'-dpng','-r0','-painters')
-savefig(['figures/theta_histogram_' num2str(uncertainty*100) 'uncertainty.fig'])
+print(['figures/theta_nu_histogram_' num2str(uncertainty*100) 'uncertainty'],'-dpng','-r0','-painters')
+savefig(['figures/theta_nu_histogram_' num2str(uncertainty*100) 'uncertainty.fig'])

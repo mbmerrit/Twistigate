@@ -40,7 +40,7 @@ end
 
 delta_max = L_free - L_solid;   % the maximum deflection
 d_o = d_i + 2*d_w; % the outer diameter
-nu = 0.3; % Poisson ratio, this is the valued we've agreed to use
+% nu = 0.3; % Poisson ratio, this is the valued we've agreed to use
 R_0 = (d_i + d_w)/2;  % radius 
 D_0 = 2*R_0; % uncompressed diameter
 l_w = sqrt(H_0.^2 + (n_0.*2*pi.*R_0).^2);  % the length of the wire
@@ -56,6 +56,6 @@ spring.R_0 = R_0;
 spring.alpha_0 = alpha_0;
 spring.delta_max = delta_max;
 spring.d_o = d_o;
-spring.nu = nu;
+% spring.nu = nu;
 
 end
