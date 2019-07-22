@@ -7,7 +7,7 @@ spring = nominal_spring();
 
 % generate random samples
 rng('default'); % same random seed for reproductability
-N_mc = 1e5; % number of MCS samples
+N_mc = 1e6; % number of MCS samples
 
 F = unifrnd( 7.21-0.05    , 7.21+0.05      ,  N_mc , 1);  % F_hat
 L_hat   = unifrnd(0.025 - 0.001 , 0.025 + 0.001  ,  N_mc , 1);  % L_hat
@@ -27,11 +27,13 @@ delta = spring.L_free - L_hat;
 D_1 = 2 * compute_r1_vectorize(spring, delta);
 n_1 = compute_n1_vectorize(spring, delta);
 
-for i = 1:N_mc 
+disp('iterating');
+parfor i = 1:N_mc 
     my_obj_fun = @(Lf) 8*F(i)*(D_1(i))^3*n_1(i) /...
         (spring.G*(spring.d_w(i))^4) - (Lf - L_hat(i));
     L_free(i) = fzero(my_obj_fun,spring.L_free);
 end
+disp('finished iterations');
 
 spring.L_free = L_free'; % replace L_free calculated
 
