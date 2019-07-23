@@ -7,7 +7,7 @@ spring = nominal_spring();
 
 % generate random samples
 rng('default'); % same random seed for reproductability
-N_mc = 1e6; % number of MCS samples
+N_mc = 1e5; % number of MCS samples
 
 F = unifrnd( 7.21-0.05    , 7.21+0.05      ,  N_mc , 1);  % F_hat
 L_hat   = unifrnd(0.025 - 0.001 , 0.025 + 0.001  ,  N_mc , 1);  % L_hat
@@ -38,7 +38,8 @@ disp('finished iterations');
 spring.L_free = L_free'; % replace L_free calculated
 
 theta = compute_theta_vectorize(spring,L_free'-L_hat);
-
+save('save_MCS_iterative.mat')
+return
 % get a theta from nominal values
 spring_nominal = Convert_Build_Params_vectorize(nominal_spring());
 delta_nominal = spring_nominal.L_free - 0.025;

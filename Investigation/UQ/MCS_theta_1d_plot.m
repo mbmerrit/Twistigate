@@ -7,8 +7,8 @@ spring = nominal_spring();
 
 % generate random samples
 rng('default'); % same random seed for reproductability
-N_mc = 1e4; % number of MCS samples
-uncertainty = .10;
+N_mc = 1e6; % number of MCS samples
+uncertainty = .25;
 X_1 = unifrnd( (1-uncertainty)*spring.d_i   , (1+uncertainty)*spring.d_i,    N_mc, 1);
 X_2 = unifrnd( (1-uncertainty)*spring.d_w   , (1+uncertainty)*spring.d_w,    N_mc, 1);
 X_3 = unifrnd( (1-uncertainty)*spring.L_free, (1+uncertainty)*spring.L_free, N_mc, 1);
@@ -21,26 +21,28 @@ spring_MCS.d_w    = X_2;
 spring_MCS.L_free = X_3;
 spring_MCS.N_t    = X_4;
 spring_MCS.nu     = X_5;
-spring_MCS.end_condition = 'open';
+spring_MCS.end_condition = 'open_ground';
 
 % convert parameters
 spring_MCS = Convert_Build_Params_vectorize(spring_MCS);
 
-delta_factor = 0.85;
-delta = delta_factor * spring_MCS.delta_max;
+L_hat = 0.025;
+delta = spring_MCS.L_free - L_hat;
 
 theta = compute_theta_vectorize(spring_MCS,delta);
 
+mymarkersize = 1;
+
 fig1=figure();hold on;
 fig1.Position = [200 200 1400 600];
-annotation('textbox', [0 0.9 1 0.1], ...
-    'String', [num2str(N_mc) '~MCS samples, $\delta=~0.85(L_f-L_s),~\epsilon=~$' num2str(uncertainty*100) '\%'], ...
-    'EdgeColor', 'none', ...
-    'HorizontalAlignment', 'center',...
-    'interpreter','latex',...
-    'fontsize',20)
+% annotation('textbox', [0 0.9 1 0.1], ...
+%     'String', [num2str(N_mc) '~MCS samples, $\delta=~0.85(L_f-L_s),~\epsilon=~$' num2str(uncertainty*100) '\%'], ...
+%     'EdgeColor', 'none', ...
+%     'HorizontalAlignment', 'center',...
+%     'interpreter','latex',...
+%     'fontsize',20)
 subplot(231);hold on;
-plot(X_1*1e3,theta,'k.')
+plot(X_1*1e3,theta,'k.','markersize',mymarkersize)
 xlabel('$d_i~$(mm)','interpreter','latex','fontsize',20);
 ylabel('$\theta~(^{\circ})$','interpreter','latex','fontsize',20);
 set(gca           ,             ...
@@ -58,7 +60,7 @@ set(gca           ,             ...
     'LineWidth'   , 1         );
 axis tight
 subplot(232);hold on;
-plot(X_2*1e3,theta,'b.')
+plot(X_2*1e3,theta,'b.','markersize',mymarkersize)
 xlabel('$d_w~$(mm)','interpreter','latex','fontsize',20);
 set(gca           ,             ...
     'Box'         , 'on'      , ...
@@ -75,7 +77,7 @@ set(gca           ,             ...
     'LineWidth'   , 1         );
 axis tight
 subplot(233);hold on;
-plot(X_3*1e3,theta,'r.')
+plot(X_3*1e3,theta,'r.','markersize',mymarkersize)
 xlabel('$L_f~$(mm)','interpreter','latex','fontsize',20);
 set(gca           ,             ...
     'Box'         , 'on'      , ...
@@ -92,7 +94,7 @@ set(gca           ,             ...
     'LineWidth'   , 1         );
 axis tight
 subplot(234);hold on;
-plot(X_4,theta,'g.')
+plot(X_4,theta,'g.','markersize',mymarkersize)
 xlabel('$N_t$','interpreter','latex','fontsize',20);
 ylabel('$\theta~(^{\circ})$','interpreter','latex','fontsize',20);
 set(gca           ,             ...
@@ -110,7 +112,7 @@ set(gca           ,             ...
     'LineWidth'   , 1         );
 axis tight
 subplot(235);hold on;
-plot(X_5,theta,'m.')
+plot(X_5,theta,'m.','markersize',mymarkersize)
 xlabel('$\nu$','interpreter','latex','fontsize',20);
 set(gca           ,             ...
     'Box'         , 'on'      , ...
@@ -127,7 +129,7 @@ set(gca           ,             ...
     'LineWidth'   , 1         );
 axis tight
 subplot(236);hold on;
-plot(delta*1e3,theta,'c.')
+plot(delta*1e3,theta,'c.','markersize',mymarkersize)
 xlabel('$\delta~$(mm)','interpreter','latex','fontsize',20);
 set(gca           ,             ...
     'Box'         , 'on'      , ...
@@ -144,5 +146,5 @@ set(gca           ,             ...
     'LineWidth'   , 1         );
 axis tight
 set(gcf,'PaperPositionMode','auto')
-% print(['figures/MCS_theta_1d_plot_' num2str(uncertainty*100) 'uncertainty.fig'],'-deps','-r0','-painters')
-% savefig(['figures/MCS_theta_1d_plot_' num2str(uncertainty*100) 'uncertainty.fig'])
+print(['figures/MCS_theta_1d_plot_' num2str(uncertainty*100) 'uncertainty.fig'],'-deps','-r0','-painters')
+savefig(['figures/MCS_theta_1d_plot_' num2str(uncertainty*100) 'uncertainty.fig'])

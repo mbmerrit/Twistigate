@@ -6,6 +6,7 @@ load_path
 spring = nominal_spring();
 
 L_f_list = [0.0125 0.025 0.05 0.1 0.2 0.3 0.4 0.5 0.6 0.7];
+% L_f_list = [0.025];
 
 for i = 1:length(L_f_list)
 L_f_factor = L_f_list(i);
@@ -58,7 +59,7 @@ f4=plot(L_f_list*100,theta_bandwidth(3,:)*100,'rx','markersize',10);
 legend([f1 f2 f3 f4],'$\theta_{\max}$','$\theta_{\min}$',...
     '$\theta_{90}$','$\theta_{10}$');legend boxoff;
 set(legend,'location','northwest','interpreter','latex')
-xlabel('$\epsilon~(\%)$','interpreter','latex','fontsize',20)
+xlabel('$\epsilon~(\%)$ for $L_f$','interpreter','latex','fontsize',20)
 ylabel('$(\theta - \theta_{nom})/\theta_{nom}~(\%)$','interpreter','latex','fontsize',20)
 set(gca           ,             ...
     'Box'         , 'on'      , ...
@@ -73,8 +74,8 @@ set(gca           ,             ...
     'YColor'      , 'k'       , ...
     'FontSize'    , 20        , ...
     'LineWidth'   , 1         );
-title(['$L_f \sim U[(1 - \epsilon)\theta_{nom}, (1 + \epsilon)\theta_{nom} ]$'],...
-    'interpreter','latex','fontsize',15)
+% title(['$L_f \sim U[(1 - \epsilon)\theta_{nom}, (1 + \epsilon)\theta_{nom} ]$'],...
+%     'interpreter','latex','fontsize',15)
 set(gcf,'PaperPositionMode','auto')
 print(['figures/bandwidth_theta_vs_L_f'],'-dpng','-r0','-painters')
 savefig(['figures/bandwidth_theta_vs_L_f.fig'])
