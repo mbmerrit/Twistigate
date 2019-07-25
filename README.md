@@ -1,12 +1,12 @@
 How to use the Twistigate code base (writing code utilizing the formulation):
-	1. Create your script in the Investigations directory
-	2. Load the functions into Matlab path
-	3. Set spring design parameters (suggest loading nominal spring and modifying as needed)
-	4. Call spring_metrics function to calculate the final parameters
+1. Create your script in the Investigations directory
+2. Load the functions into Matlab path
+3. Set spring design parameters (suggest loading nominal spring and modifying as needed)
+4. Call spring_metrics function to calculate the final parameters
 
 Some example code is below.
 
-'''
+```
 
 	load_path;
 
@@ -44,4 +44,4 @@ Some example code is below.
 
 
 
-'''
+```
