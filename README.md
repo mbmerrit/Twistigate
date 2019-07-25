@@ -6,7 +6,8 @@ How to use the Twistigate code base (writing code utilizing the formulation):
 
 Some example code is below.
 
-''' matlab
+'''
+
 	load_path;
 
 	% load default spring parameters - helps to avoid typos
