@@ -1,7 +1,9 @@
+Lhat = 0.025;
 load_path;
 spring = nominal_spring();
  spring = Convert_Build_Params(spring);
-% a=compute_theta(spring, delta);
+ delta = spring.L_free-Lhat;
+ a=compute_theta(spring, delta)
 
 Lhat = 0.025;
 spring.N_t = 12.4766;
@@ -12,6 +14,7 @@ spring.end_condition = 'open';
 spring = Convert_Build_Params(spring);
 
 delta = spring.L_free-Lhat;
-k=Compute_k(spring,delta)
+k=Compute_k(spring,delta);
 
-k*delta
+%k*delta;
+%Optimize_Twist_struct(6.09,0.025)
