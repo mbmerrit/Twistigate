@@ -1,5 +1,5 @@
 function [FNorm spring] = FNormForOpt(x, Fhat, Lhat)
-load_path
+%load_path
 spring=nominal_spring();
 spring.N_t= x(1);
 spring.d_i= x(2);

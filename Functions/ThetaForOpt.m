@@ -1,5 +1,5 @@
 function [theta] = ThetaForOpt(x, Fhat, Lhat)
-load_path
+%load_path
 spring=nominal_spring();
 spring=Convert_Build_Params(spring);
 spring.N_t= x(1);

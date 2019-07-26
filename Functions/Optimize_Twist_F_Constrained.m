@@ -1,4 +1,4 @@
-function [spring] = Optimize_Twist_struct(Fhat, Lhat,init_spring_params, beta_1,beta_2)
+function [spring] = Optimize_Twist_F_Constrained(Fhat, Lhat,init_spring_params, beta_1,beta_2)
 % SAMSI IMSM Team Twistigate 2019
 
 % All inputs in SI units
@@ -8,11 +8,11 @@ function [spring] = Optimize_Twist_struct(Fhat, Lhat,init_spring_params, beta_1,
 % the compressed height of Lhat (m)
 
 if isempty(beta_1)
-    beta_1 = 1e-4
+    beta_1 = 1e-4;
 end
 
 if isempty(beta_2)
-    beta_2 = 1e4
+    beta_2 = 1e4;
 end
 
 if isempty(init_spring_params)
