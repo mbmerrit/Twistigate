@@ -22,11 +22,11 @@ G = spring.G;
 % create a bunch of combinations
 d_i    = linspace(10, 50, 100) / 1000;
 L_free = linspace(0.075, 0.4, 100);
-N_t    = linspace(4, 50, 100);
+N_t    = linspace(4, 25, 100);
 
 
 % constraints
-F = 6.09;
+F = 7.21;
 L_hat = 0.025;
 max_alpha_0 = 20;
 max_L_solid = L_hat;
@@ -140,7 +140,7 @@ nom_spring.theta = compute_theta(nom_spring, nom_spring.L_free - L_hat);
 nom_spring.stiffness = G * nom_spring.d_w^4 / (8 * (nom_spring.D_1)^3 * n_1);
 
 % Plots with bad springs
-figure('visible','off')
+figure()
 scatter(stiffness, theta, '+'); hold on
 scatter(fail_solid_stiffness, fail_solid_theta, 'd')
 scatter(fail_alpha_stiffness, fail_alpha_theta, '^')
@@ -151,7 +151,7 @@ title('Relationship Between Twist Angle and Stiffness', 'Fontsize', 18)
 legend('Valid Designs','L_s > L_{compress}',strcat('\alpha_0 >  20 ', char(176)),'Nominal Design')
 saveas(gcf,'../Figures/With_Missing/theta_k_free_const_n.fig')
 
-figure('visible','off');
+figure();
 scatter(spring_index, theta, '+'); hold on
 scatter(fail_solid_spring_index, fail_solid_theta, 'd')
 scatter(fail_alpha_spring_index, fail_alpha_theta, '^')
@@ -162,7 +162,7 @@ title('Relationship Between Twist Angle and Spring Index', 'Fontsize', 18)
 legend('Valid Designs','L_s > L_{compress}',strcat('\alpha_0 >  20 ', char(176)),'Nominal Design')
 saveas(gcf,'../Figures/With_Missing/theta_SI_free_const_n.fig')
 
-figure('visible','off');
+figure();
 scatter(free_length*1000, theta, '+'); hold on
 scatter(fail_solid_free_length*1000, fail_solid_theta, 'd')
 scatter(fail_alpha_free_length*1000, fail_alpha_theta, '^')
@@ -173,7 +173,7 @@ title('Relationship Between Twist Angle and Free Length', 'Fontsize', 18)
 legend('Valid Designs','L_s > L_{compress}',strcat('\alpha_0 >  20 ', char(176)),'Nominal Design')
 saveas(gcf,'../Figures/With_Missing/theta_Lf_free_const_n.fig')
 
-figure('visible','off');
+figure();
 scatter(inner_diam*1000, theta, '+'); hold on
 scatter(fail_solid_inner_diam*1000, fail_solid_theta, 'd')
 scatter(fail_alpha_inner_diam*1000, fail_alpha_theta, '^')
@@ -184,7 +184,7 @@ title('Relationship Between Twist Angle and Inner Diameter', 'Fontsize', 18)
 legend('Valid Designs','L_s > L_{compress}',strcat('\alpha_0 >  20 ', char(176)),'Nominal Design')
 saveas(gcf,'../Figures/With_Missing/theta_di_free_const_n.fig')
 
-figure('visible','off');
+figure();
 scatter(wire_diam*1000, theta, '+'); hold on
 scatter(fail_solid_wire_diam*1000, fail_solid_theta, 'd')
 scatter(fail_alpha_wire_diam*1000, fail_alpha_theta, '^')
@@ -196,7 +196,7 @@ legend('Valid Designs','L_s > L_{compress}',strcat('\alpha_0 >  20 ', char(176))
 saveas(gcf,'../Figures/With_Missing/theta_dw_free_const_n.fig')
 
 % plots without failed springs
-figure('visible','off')
+figure()
 scatter(stiffness, theta, '+'); hold on
 scatter(nom_spring.stiffness, nom_spring.theta, 75, 'filled')
 xlabel('Stiffness (^{N}/_{m})', 'Fontsize', 16)
@@ -204,7 +204,7 @@ ylabel(strcat('\theta (', char(176),')'), 'Fontsize', 16)
 title('Relationship Between Twist Angle and Stiffness', 'Fontsize', 18)
 saveas(gcf,'../Figures/High_SI/theta_k_free_const_n.fig')
 
-figure('visible','off');
+figure();
 scatter(spring_index, theta, '+'); hold on
 scatter(nom_spring.spring_index, nom_spring.theta, 75, 'filled')
 xlabel('Spring Index', 'Fontsize', 16)
@@ -212,7 +212,7 @@ ylabel(strcat('\theta (', char(176),')'), 'Fontsize', 16)
 title('Relationship Between Twist Angle and Spring Index', 'Fontsize', 18)
 saveas(gcf,'../Figures/High_SI/theta_SI_free_const_n.fig')
 
-figure('visible','off');
+figure();
 scatter(free_length*1000, theta, '+'); hold on
 scatter(nom_spring.L_free*1000, nom_spring.theta, 75, 'filled')
 xlabel('L_{free} (mm)', 'Fontsize', 16)
@@ -220,7 +220,7 @@ ylabel(strcat('\theta (', char(176),')'), 'Fontsize', 16)
 title('Relationship Between Twist Angle and Free Length', 'Fontsize', 18)
 saveas(gcf,'../Figures/High_SI/theta_Lf_free_const_n.fig')
 
-figure('visible','off');
+figure();
 scatter(inner_diam*1000, theta, '+'); hold on
 scatter(nom_spring.d_i*1000, nom_spring.theta, 75, 'filled')
 xlabel('d_{i} (mm)', 'Fontsize', 16)
@@ -228,7 +228,7 @@ ylabel(strcat('\theta (', char(176),')'), 'Fontsize', 16)
 title('Relationship Between Twist Angle and Inner Diameter', 'Fontsize', 18)
 saveas(gcf,'../Figures/High_SI/theta_di_free_const_n.fig')
 
-figure('visible','off');
+figure();
 scatter(wire_diam*1000, theta, '+'); hold on
 scatter(nom_spring.d_w*1000, nom_spring.theta, 75, 'filled')
 xlabel('d_{w} (mm)', 'Fontsize', 16)

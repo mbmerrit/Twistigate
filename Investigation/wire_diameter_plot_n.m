@@ -18,9 +18,8 @@ for j = 1:numel(N_t)
     spring.N_t = N_t(j);
     for i = 1:numel(d_w)
         spring.d_w = d_w(i);
-        spring = Convert_Build_Params(spring);
-        delta = 0.05;
-        theta(i,j) = compute_theta(spring, delta);
+        spring = spring_metrics(spring);
+        theta(i,j) = spring.theta;
     end
     plot(d_w*1000, theta(:,j), 'LineWidth', 3)
     hold on
