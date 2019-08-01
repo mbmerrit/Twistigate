@@ -28,7 +28,7 @@ my_spring.L_free = 0.100;
 my_spring.N_t = 7;
 
 % end condition of spring
-my_spring.end_condition = 'open-ground';
+my_spring.end_condition = 'open_ground';
 
 % shear modulus
 my_spring.G = 79e9;
