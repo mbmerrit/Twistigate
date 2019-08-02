@@ -1,9 +1,9 @@
 Lhat = 0.025;
 load_path;
 spring = nominal_spring();
- spring = Convert_Build_Params(spring);
- delta = spring.L_free-Lhat;
- a=compute_theta(spring, delta)
+spring = Convert_Build_Params(spring);
+delta = spring.L_free-Lhat;
+a=compute_theta(spring, delta)
 
 Lhat = 0.025;
 spring.N_t = 12.4766;

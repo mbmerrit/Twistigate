@@ -1,9 +1,7 @@
-%%
-clear
-n_linsp=1000;
-delta = linspace(0,0.1,n_linsp);  % deflection through 0.1m=100 mm%
-theta=zeros(n_linsp, n_linsp); %initialize_theta
-n_coils = linspace(5,9,n_linsp);  % deflection through 0.1m=100 mm%
+clear, clc, close all
+
+delta = .0001:1e-4:.085;  % deflection through 85%
+theta=zeros(size(delta)); %initialize_theta
 
 load_path
 

@@ -1,4 +1,4 @@
-% Plot twist angle as a function of wire diameter
+% Plot other design parameters as functions of deflection
 clear, clc, close all
 
 load_path
