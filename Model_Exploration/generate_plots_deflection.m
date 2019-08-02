@@ -1,4 +1,4 @@
-clear
+clear, clc, close all
 
 delta = .0001:1e-4:.085;  % deflection through 85%
 theta=zeros(size(delta)); %initialize_theta
