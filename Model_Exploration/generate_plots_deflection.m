@@ -28,8 +28,10 @@ title('Angle of twist vs deflection for different end conditions')
 
 %%
 %Here we plot theta(deflection) and use several numbers of coils
-%n_coils = [5,5.5,6,6.5,7, 7.5,8, 8.5,9];
-l2=strings(size(n_coils));
+figure
+n_coils = [4.5, 6.5, 8.5, 10.5, 13.5, 15.5];
+n_linsp = numel(delta);
+theta = zeros(n_linsp, numel(n_coils));
 spring.end_condition='open_ground';
     
 for j = 1:length(n_coils)
@@ -43,18 +45,17 @@ for j = 1:length(n_coils)
 %    l2{j} = strcat('N_T = ', num2str(n_coils(j)));
 end
 surf(n_coils,delta,theta); hold on
-%% Now plot theta(inner diameter) - Mike
-clear
 
+
+%% Now plot theta(inner diameter) - Mike
 set(gca,'fontsize', 20)
 axis tight; grid on
 xlabel('n coils')
 ylabel('deflection (mm)')
 zlabel('\theta (\circ)')
-legend(l2,'location', 'best')
 title('Angle of twist vs deflection for nominal open ground spring, varied # of coils')
 
-
+figure
 load_path
 spring = nominal_spring();
 %Here we plot theta(deflection) and use several numbers of coils
@@ -83,7 +84,8 @@ legend(l,'location', 'best')
 %%
 %Here we plot theta(Lf) for fixed deflection and use several numbers of coils
 clear
-close all;
+
+figure
 n_linsp=1000;
 n_coils=linspace(5,9,5);
 theta=NaN(n_linsp, 5); %initialize_theta

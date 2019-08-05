@@ -43,7 +43,6 @@ legend(l, 'FontSize', 16)
 grid on
 f = gcf;
 f.set('Position', [0,0,1920,1080]);
-saveas(gcf, '../Figures/theta_v_delta.fig');
 
 figure;
 % loop through parameters
@@ -74,7 +73,7 @@ legend(l, 'FontSize', 16)
 grid on
 f = gcf;
 f.set('Position', [0,0,1920,1080]);
-saveas(gcf, '../Figures/f_v_delta.fig');
+
 
 figure;
 % loop through parameters
@@ -107,4 +106,3 @@ legend(l, 'FontSize', 16)
 grid on
 f = gcf;
 f.set('Position', [0,0,1920,1080]);
-saveas(gcf, '../Figures/k_v_delta_percent.fig');

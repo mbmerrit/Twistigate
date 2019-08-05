@@ -59,5 +59,3 @@ plot(d_i*1000, theta_n_105, '--', 'LineWidth', 2)
 xlabel('d_i')
 ylabel('\theta (\circ)')
 legend('Michalczyk Data','n_0 = 8.5','n_0 = 9.5','n_0 = 10.5')
-saveas(gcf, '../Figures/compare_to_michalczyk.fig')
-close all
