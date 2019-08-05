@@ -1,16 +1,11 @@
-clear
+
 tic
-UNC = [.025 .05 .075 .1 .15 .2 .25 .3 .35 .4 .45 .5 .6 .7 .8 .9 1];
 ndim = 6;
-T = zeros(length(UNC),ndim);
-S = zeros(length(UNC),ndim);
-for j = 1:length(UNC)
-    disp(j)
+
 %
 % some initialization
 %
-N = 1e5;  % number of random samples
-ndim = 6;
+N = 1e3;  % number of random samples
 
 % nominal parameter values with everything +/- 10%
 % parameters: d_i, d_w, L_f, N_t, nu, delta   (end condition is also one)
@@ -24,10 +19,9 @@ mu = [k1; k2; k3; k4; k5; k6];   % mean of the parameters
 end_condition = 'open_ground';  % this will now always be the EC!
 
 %
-% 10% pertrubation around mean
+% start with 10% pertrubation around mean
 %
-%unc = .1;
-unc = UNC(j);
+unc = .1;
 a = mu - unc*mu;
 b = mu + unc*mu;
 
@@ -61,7 +55,7 @@ for i = 1:N
 end  
 qA = qA';  % just give them the right dimensions
 qB = qB';
-clear Eng_A
+clear Eng_A % this just saves on storage
 clear Eng_B
 
  
@@ -81,39 +75,20 @@ for k = 1:ndim % this substitutes one column of B into each A, then evaluates
 end
 clear C_orig
 clear Eng_C
+size(qA)
+size(qB)
+size(qC)
 
 % Here is where we compute the Sobol' Indices - just first order and total
-%[Total Single] = get_sobol_indices(qA, qB, qC);
+[Total Single] = get_sobol_indices(qA, qB, qC);
 [NN,MM] = size(qA);
-if NN == N
-    
-else
-    qA = qA';
-end
-[NN,MM] = size(qB);
-if NN == N
-    
-else
-    qB = qB';
-end
-[T(j,:) S(j,:)] = get_sobol_indices(qA, qB, qC);
-end
+
 toc
 
-plot(UNC, T', '-o')
-set(gca, 'fontsize', 20);
-xlabel('\epsilon variation in parameters')
-ylabel('T_i')
-legend('d_i','d_w','L_f','N_t','\nu','\delta','orientation','horizontal')
-grid on
-title('Total Sobol Indices')
-% bar([Total;Single]', 1)
-% xtik = {'d_i', 'd_w','L_f','N_t','\nu','\delta'};
-% set(gca, 'XTickLabel', xtik,'fontsize',20)
-% title(['Sobol Indices - $\delta$ fixed at 50 mm, $\epsilon = $',num2str(100*unc),'\%'],'interpreter','latex')
-% legend('Total','First Order')
 
+bar([Total;Single]', 1)
+xtik = {'d_i', 'd_w','L_f','N_t','\nu','\delta'};
+set(gca, 'XTickLabel', xtik,'fontsize',20)
+title(['Sobol Indices - $\delta$ fixed at 50 mm, $\epsilon = $',num2str(100*unc),'\%'],'interpreter','latex')
+legend('Total','First Order')
 
-%save N4M2e4data_units_nointerp
-%save('Total.mat','Total', '-v7.3')
-%save('Single.mat','Single', '-v7.3')

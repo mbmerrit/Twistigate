@@ -1,9 +1,9 @@
-clear
+
 tic
 %
 % some initialization
 %
-N = 5e5;  % number of random samples
+N = 1e4;  % number of random samples
 ndim = 6;
 
 
@@ -32,7 +32,6 @@ A_mat = [A_mat delta_A];
 delta_B = B_mat(:,3) - Lhat; 
 B_mat = [B_mat delta_B];
 
-% Now we compute deflection iteratively...
 
 % load the random values into a cell array
 A = load_values(A_mat, end_condition);
@@ -89,7 +88,7 @@ for k = 1:ndim % this substitutes one column of B into each A, then evaluates
     end
 end
 clear C_orig
-%clear Eng_C
+clear Eng_C
 
 % Here is where we compute the Sobol' Indices - just first order and total
 [Total Single] = get_sobol_indices(qA, qB, qC);
@@ -101,5 +100,3 @@ set(gca, 'XTickLabel', xtik,'fontsize',20)
 title(['Sobol Indices - $\hat{L} = L_{free} - \delta = 25 mm$ , Custom Tolerances'],'interpreter','latex')
 legend('Total','First Order','location','best')
 
-%save N4M2e4data_units_nointerp
-%  save('S_rtc.mat','S_rtc', '-v7.3')
