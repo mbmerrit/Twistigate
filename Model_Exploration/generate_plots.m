@@ -23,6 +23,7 @@ legend(l,'location', 'best')
 
 %% Now plot theta(inner diameter) - Mike
 clear
+figure
 
 spring = nominal_spring();
 %Here we plot theta(deflection) and use several numbers of coils
@@ -53,6 +54,7 @@ title(['Fixing ','$$\delta = \frac{\delta_{max}}{2}$$'],...
 
 %% plot F(delta)
 clear
+figure
 
 load_path
 spring = nominal_spring();
@@ -82,7 +84,8 @@ title(['Fixing ','$$\delta = 0 ~to~ .85\delta_{max}$$'],...
 
 % Vary Poisson's ratio
 
-clear all; close all; clc;
+clear; 
+figure
 
 %% Load the spring
 spring = nominal_spring;
@@ -114,7 +117,8 @@ legend(l,'location','northwest');
 
 
 % Plot twist angle as a function of wire diameter
-clear, clc, close all
+clear
+figure
 
 load_path
 spring = nominal_spring();
