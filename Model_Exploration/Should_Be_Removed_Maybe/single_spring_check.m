@@ -14,7 +14,7 @@ spring.end_condition = 'open';
 spring = Convert_Build_Params(spring);
 
 delta = spring.L_free-Lhat;
-k=Compute_k(spring,delta);
+k = compute_k(spring,delta);
 
 %k*delta;
 %Optimize_Twist_struct(6.09,0.025)

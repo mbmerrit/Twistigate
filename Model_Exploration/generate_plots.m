@@ -64,7 +64,7 @@ for j = 1:length(n_coils)
     delta = 0:1e-4:.85*Conversion_Output.delta_max;
     clear F
     for i = 1:length(delta)
-        rate(i) = Compute_k(Conversion_Output, delta(i));
+        rate(i) = compute_k(Conversion_Output, delta(i));
         F(i) = rate(i)*delta(i);
 
     end

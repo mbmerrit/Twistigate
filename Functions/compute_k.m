@@ -1,4 +1,4 @@
-function rate = Compute_k(spring, delta)
+function rate = compute_k(spring, delta)
 % Computes spring rate k where 'spring' is a struct
 G = 76e9; % bulk/shear modulus
 d_w = spring.d_w;
