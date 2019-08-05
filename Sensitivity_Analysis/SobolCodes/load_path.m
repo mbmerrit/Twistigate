@@ -1,3 +1,1 @@
-addpath('..')
-addpath('../..')
 addpath('../../Functions')

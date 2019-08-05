@@ -1,11 +1,11 @@
 
 tic
 ndim = 6;
-
+load_path
 %
 % some initialization
 %
-N = 1e3;  % number of random samples
+N = 1e5;  % number of random samples
 
 % nominal parameter values with everything +/- 10%
 % parameters: d_i, d_w, L_f, N_t, nu, delta   (end condition is also one)
@@ -75,9 +75,7 @@ for k = 1:ndim % this substitutes one column of B into each A, then evaluates
 end
 clear C_orig
 clear Eng_C
-size(qA)
-size(qB)
-size(qC)
+
 
 % Here is where we compute the Sobol' Indices - just first order and total
 [Total Single] = get_sobol_indices(qA, qB, qC);

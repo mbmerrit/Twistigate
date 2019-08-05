@@ -3,8 +3,9 @@ tic
 %
 % some initialization
 %
-N = 1e4;  % number of random samples
+N = 1e5;  % number of random samples
 ndim = 6;
+load_path
 
 
 % parameters: d_i, d_w, L_f, N_t, nu, delta   (end condition is also one)
