@@ -1,3 +1,4 @@
+
 *~
 Figures/
 Investigation/Grad_Objective\.m
@@ -9,3 +10,5 @@ Investigation/optimization\.asv
 *.asv
 
 Investigation/Opt_twist_Fconst\.m
+
+.DS_Store
